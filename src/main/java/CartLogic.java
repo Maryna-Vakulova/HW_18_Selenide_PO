@@ -1,34 +1,20 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 
-public class CartLogic {
-
-    By btnCartCheckProduct = By.xpath("//button[contains(@class,'header__button--active')]");
-    By titleOfProductInCart = By.xpath("//a[@class='cart-product__title']");
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    public CartLogic(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
-    }
+public class CartLogic extends CartElement {
 
     public CartLogic clickOnProductInCart() {
-        driver.findElement(btnCartCheckProduct).click();
+        btnCartCheckProduct.click();
         return this;
     }
 
     public String checkProductTitleInCart() {
-        return driver.findElement(titleOfProductInCart).
-                getAttribute("outerText");
+        return titleOfProductInCart.shouldBe(Condition.visible).
+                attr("outerText");
     }
 
     public String checkOneProductInCart() {
-        return driver.findElement(btnCartCheckProduct).
-                getAttribute("innerText");
+        return btnCartCheckProduct.shouldBe(Condition.visible).
+                attr("innerText");
     }
-
-
 }

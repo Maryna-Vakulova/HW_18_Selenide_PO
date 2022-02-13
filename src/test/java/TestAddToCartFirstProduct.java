@@ -1,47 +1,42 @@
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
+import static com.codeborne.selenide.Selenide.open;
+import static org.testng.Assert.assertEquals;
 
 public class TestAddToCartFirstProduct {
-    WebDriver driver;
-    WebDriverWait wait;
-    String expectedResult = "1";
 
-    @BeforeMethod
+    final String EXPECTED = "1";
+
+    @BeforeClass
     public void before() {
-        System.setProperty("webdriver.chrome.driver", "c:\\driver\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 10);
-        driver.get("https://rozetka.com.ua/");
+        Configuration.startMaximized = true;
+        open("https://rozetka.com.ua/");
     }
 
     @Test
     public void testAddToCartProduct() {
-
-        new MainPageLogic(driver, wait).clickCategoryBtn()
+        new MainPageLogic().clickCategoryBtn()
                 .clickNotebookBtn()
                 .addToCartFirstProduct();
 
-        String titleOnPage = new SearchPageLogic(driver, wait).checkTitleOnSearchPage();
+        String titleOnPage = new SearchPageLogic().checkTitleOnSearchPage();
 
-        CartLogic cartLogic = new CartLogic(driver, wait);
+        CartLogic cartLogic = new CartLogic();
 
-        Assert.assertEquals(cartLogic.checkOneProductInCart(), expectedResult);
+        assertEquals(cartLogic.checkOneProductInCart(), EXPECTED);
+
         cartLogic.clickOnProductInCart();
 
-        Assert.assertEquals(cartLogic.checkProductTitleInCart(), titleOnPage);
+        assertEquals(cartLogic.checkProductTitleInCart(), titleOnPage);
+
     }
 
-    @AfterMethod
-    public void after() {
-        driver.quit();
-    }
+
 }

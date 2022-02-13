@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HW_14_PageObject" />
+        <module name="HW_18_Selenide_PO" />
       </profile>
     </annotationProcessing>
   </component>

@@ -1,21 +1,11 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import static com.codeborne.selenide.Selenide.page;
 
-public class CategoryPageLogic {
-
-    By choiceCategoryNotebook = By.xpath("//div[@class='tile-cats']");
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    public CategoryPageLogic(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
-    }
+public class CategoryPageLogic extends CategoryPageElement{
 
     public SearchPageLogic clickNotebookBtn() {
-        driver.findElement(choiceCategoryNotebook).click();
-        return new SearchPageLogic(driver, wait);
+        choiceCategoryNotebook.shouldBe(Condition.visible).click();
+        return page(SearchPageLogic.class);
     }
 }
