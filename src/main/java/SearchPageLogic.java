@@ -4,8 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 public class SearchPageLogic extends SearchPageElement{
 
 
-    public SearchPageLogic addToCartFirstProduct() {
-        firstProductOnPage.shouldBe(Condition.visible).click();
+    public SearchPageLogic addToCartFirstProduct(SelenideElement product) {
+        product.shouldBe(Condition.visible).click();
         return this;
     }
 

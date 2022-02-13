@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import static com.codeborne.selenide.Selenide.open;
 import static org.testng.Assert.assertEquals;
 
@@ -22,19 +23,21 @@ public class TestAddToCartFirstProduct {
 
     @Test
     public void testAddToCartProduct() {
-        new MainPageLogic().clickCategoryBtn()
-                .clickNotebookBtn()
-                .addToCartFirstProduct();
-
-        String titleOnPage = new SearchPageLogic().checkTitleOnSearchPage();
-
+        MainPageLogic mainPage = new MainPageLogic();
+        SearchPageLogic searchPage = new SearchPageLogic();
         CartLogic cartLogic = new CartLogic();
 
-        assertEquals(cartLogic.checkOneProductInCart(), EXPECTED);
+        mainPage.clickCategoryBtn(mainPage.menuSideBarNotebook)
+                .clickNotebookBtn(new CategoryPageLogic().categoryNotebook)
+                .addToCartFirstProduct(searchPage.firstProductOnPage);
 
-        cartLogic.clickOnProductInCart();
+        String titleOnPage = searchPage.checkTitleOnSearchPage();
 
-        assertEquals(cartLogic.checkProductTitleInCart(), titleOnPage);
+        assertEquals(cartLogic.checkOneProductInCart(cartLogic.btnCartProduct), EXPECTED);
+
+        cartLogic.clickOnProductInCart(cartLogic.btnCartProduct);
+
+        assertEquals(cartLogic.checkProductTitleInCart(cartLogic.titleOfProductInCart), titleOnPage);
 
     }
 

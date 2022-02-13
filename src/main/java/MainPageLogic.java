@@ -5,8 +5,8 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class MainPageLogic extends MainPageElement {
 
-    public CategoryPageLogic clickCategoryBtn() {
-        menuSideBarNotebook.shouldBe(Condition.visible).click();
+    public CategoryPageLogic clickCategoryBtn(SelenideElement category) {
+        category.shouldBe(Condition.visible).click();
         return page(CategoryPageLogic.class);
     }
 }

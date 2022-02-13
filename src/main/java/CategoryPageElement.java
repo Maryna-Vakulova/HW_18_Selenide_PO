@@ -5,5 +5,5 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class CategoryPageElement {
 
-    SelenideElement choiceCategoryNotebook = $(By.xpath("//div[@class='tile-cats']"));
+    SelenideElement categoryNotebook = $(By.xpath("//div[@class='tile-cats']"));
 }
